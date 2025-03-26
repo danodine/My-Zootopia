@@ -15,12 +15,14 @@ def read_html(file_path):
 def create_animal_string(animals_data):
     output = ''
     for animal in animals_data:
-        output += f"Name: {animal['name']}\n"
-        output += f"Diet: {animal['characteristics']['diet']}\n"
+        output += '<li class="cards__item">'
+        output += f"Name: {animal['name']}<br/>\n"
+        output += f"Diet: {animal['characteristics']['diet']}<br/>\n"
         for location in animal['locations']:
-            output += f"Location: {location}\n"
+            output += f"Location: {location}<br/>\n"
         if 'type' in animal['characteristics']:
-            output += f"Type: {animal['characteristics']['type']}\n"
+            output += f"Type: {animal['characteristics']['type']}<br/>\n"
+        output += '</li>'
     return output
 
 def write_new_html_page(new_html_page, file_path):
