@@ -11,7 +11,7 @@ def load_data(file_path):
     Returns:
         dict or list: Parsed JSON data.
     """
-    with open(file_path, "r") as handle:
+    with open(file_path, "r", encoding='utf-8') as handle:
         return json.load(handle)
 
 
@@ -25,7 +25,7 @@ def read_html(file_path):
     Returns:
         str: Contents of the HTML file.
     """
-    with open(file_path, "r") as handle:
+    with open(file_path, "r", encoding='utf-8') as handle:
         return handle.read()
 
 
@@ -48,8 +48,20 @@ def create_animal_string(animals_data):
         output += '<p class="card__text">'
         output += '<ul>'
         output += f"<li><strong>Diet:</strong> {animal['characteristics']['diet']}</li>\n"
-        for location in animal['locations']:
-            output += f"<li><strong>Location:</strong> {location}</li>\n"
+        len_animal_locations = len(animal['locations'])
+        location_str = ''
+        for key, location in enumerate(animal['locations']):
+            print(len_animal_locations)
+            if len_animal_locations > 1:
+                if key == len_animal_locations-2:
+                    location_str += f"{location} and "
+                elif key == key == len_animal_locations-1:
+                    location_str += f"{location}"
+                else:
+                    location_str += f"{location}, "
+            else:
+                location_str += f"{location}"
+        output += f"<li><strong>Location:</strong> {location_str}</li>\n"
         if 'type' in animal['characteristics']:
             output += f"<li><strong>Type:</strong> {animal['characteristics']['type']}</li>\n"
         output += '</ul>'
@@ -87,7 +99,7 @@ def write_new_html_page(new_html_page, file_path):
     Returns:
         int: Number of characters written.
     """
-    with open(file_path, "w") as handle:
+    with open(file_path, "w", encoding='utf-8') as handle:
         return handle.write(new_html_page)
 
 
